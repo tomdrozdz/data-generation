@@ -2,7 +2,7 @@ import inspect
 import typing as t
 from types import ModuleType
 
-from blocks import Generator
+from generator import Generator
 
 
 def collect_generators(module: ModuleType) -> t.Iterator[type[Generator]]:

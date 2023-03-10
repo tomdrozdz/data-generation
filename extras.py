@@ -1,7 +1,7 @@
 import typing as t
 
-from blocks import Generator
 from feature import Feature
+from generator import Generator
 from household import CarNumber
 
 

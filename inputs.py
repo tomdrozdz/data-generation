@@ -2,8 +2,8 @@ import random
 import typing as t
 from dataclasses import dataclass
 
-from blocks import Generator
 from feature import Feature
+from generator import Generator
 from household import CarNumber, PersonNumber
 from person import Age, Schedule, Sex, TransportMode
 
@@ -29,7 +29,6 @@ class CarNumberSampler(Generator[CarNumber]):
         else:
             car_number = random.choice([0, 1, 2])
 
-        car_number = random.choice([0, 1, 2])
         return CarNumber(car_number)
 
 

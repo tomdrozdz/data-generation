@@ -1,8 +1,8 @@
 import inspect
 import typing as t
 
-from blocks import Generator
 from feature import Feature
+from generator import Generator
 from household import PersonNumber
 from model import Household, Person, TrafficModel
 from person import Schedule
