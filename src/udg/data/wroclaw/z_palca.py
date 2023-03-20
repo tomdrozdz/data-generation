@@ -1,0 +1,45 @@
+import random
+
+from udg.data.generator import Generator
+from udg.features.household import CarNumber, PersonNumber
+from udg.features.person import Age, Schedule, Sex, TransportMode
+
+
+class PersonNumberSampler(Generator[PersonNumber]):
+    def generate(self) -> PersonNumber:
+        person_number = random.choice([1, 2, 3, 4, 5])
+        return PersonNumber(person_number)
+
+
+class CarNumberSampler(Generator[CarNumber]):
+    def generate(self, person_number: PersonNumber) -> CarNumber:
+        if person_number <= 1:
+            car_number = random.choice([0, 1])
+        else:
+            car_number = random.choice([0, 1, 2])
+
+        return CarNumber(car_number)
+
+
+class AgeSexSampler(Generator[tuple[Age, Sex]]):
+    def generate(self) -> tuple[Age, Sex]:
+        age = random.randint(0, 100)
+        sex = random.choice(["M", "F"])
+        return Age(age), Sex(sex)
+
+
+class TransportModeDecisionTree(Generator[TransportMode]):
+    def generate(self, age: Age, sex: Sex) -> TransportMode:
+        ...
+
+        transport_mode = random.choice(["car", "public"])
+        return TransportMode(transport_mode)
+
+
+class ScheduleMaker(Generator[Schedule]):
+    def generate(self, age: Age, sex: Sex, transport_mode: TransportMode) -> Schedule:
+        ...
+
+        schedule = {"1": "University", "2": "Home"}
+
+        return Schedule(schedule)
