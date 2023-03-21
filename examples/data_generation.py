@@ -1,5 +1,3 @@
-import random
-
 from rich.pretty import pprint
 
 from udg import Builder, Generator
@@ -29,7 +27,5 @@ if __name__ == "__main__":
         WealthGenerator(),
     )
 
-    random.seed(42)
     traffic_model = builder.build_model(household_number=2)
-
     pprint(traffic_model)
