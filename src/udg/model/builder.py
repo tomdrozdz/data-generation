@@ -139,12 +139,7 @@ class Builder:
             feature: self._build(feature, context) for feature in self._person_features
         }
 
-        schedule = self._build(Schedule, context)
-
-        return Person(
-            schedule=schedule,
-            features=person_features,
-        )
+        return Person(features=person_features)
 
     def _build_household(self) -> Household:
         context: dict[type[Feature], Feature] = {}
@@ -156,12 +151,7 @@ class Builder:
         }
 
         persons = [self._build_person(context) for _ in range(person_number)]
-
-        return Household(
-            person_number=person_number,
-            persons=persons,
-            features=household_features,
-        )
+        return Household(persons=persons, features=household_features)
 
     def build_model(self, household_number: int) -> TrafficModel:
         households = [self._build_household() for _ in range(household_number)]

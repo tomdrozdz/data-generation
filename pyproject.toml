@@ -54,6 +54,7 @@ dependencies = [
 
 [tool.hatch.envs.examples.scripts]
 data-generation = "python examples/data_generation.py"
+serialization = "python examples/serialization.py"
 
 [[tool.hatch.envs.test.matrix]]
 python = ["311"]
