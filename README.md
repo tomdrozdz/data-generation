@@ -1,13 +1,13 @@
 # Urban Data Generation (working title)
 
-## TODO:
-
-* Maybe add an option to draw a nice dependency tree of features.
-
 ## Examples
 
 ```
 hatch run examples:data-generation
+```
+
+```
+hatch run examples:dependency-tree
 ```
 
 ```

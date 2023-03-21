@@ -24,6 +24,11 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+visualization = [
+  "rich",
+]
+
 [project.urls]
 Documentation = "https://github.com/unknown/udg#readme"
 Issues = "https://github.com/unknown/udg/issues"
@@ -54,6 +59,7 @@ dependencies = [
 
 [tool.hatch.envs.examples.scripts]
 data-generation = "python examples/data_generation.py"
+dependency-tree = "python examples/dependency_tree.py"
 serialization = "python examples/serialization.py"
 
 [[tool.hatch.envs.test.matrix]]
