@@ -2,10 +2,14 @@
 
 * Maybe add an option to draw a nice dependency tree of features.
 
-# Example
+# Examples
 
 ```
 hatch run examples:data-generation
+```
+
+```
+hatch run examples:serialization
 ```
 
 (`pip install hatch`)
