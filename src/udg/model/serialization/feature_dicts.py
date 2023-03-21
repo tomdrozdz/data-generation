@@ -1,6 +1,5 @@
 import functools
 import typing as t
-from itertools import chain
 
 from udg.features.base import HouseholdFeature, PersonFeature
 
@@ -11,8 +10,7 @@ FeatureType = t.TypeVar("FeatureType", HouseholdFeature, PersonFeature)
 
 @functools.cache
 def _get_type(name: str) -> type[FeatureType]:
-    features = chain(HouseholdFeature.__subclasses__(), PersonFeature.__subclasses__())
-    type_ = next((type_ for type_ in features if type_.__name__ == name), None)
+    type_ = HouseholdFeature.subclasses.get(name) or PersonFeature.subclasses.get(name)
 
     if type_ is None:
         # TODO: Add an option to pass extra user defined types somewhere,
