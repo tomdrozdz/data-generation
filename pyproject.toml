@@ -53,15 +53,16 @@ cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src/ud
 mypy = "python -m mypy src tests"
 lint = "python -m ruff --extend-select I --extend-select E501 src tests"
 
-[tool.hatch.envs.examples]
+[tool.hatch.envs.example]
 dependencies = [
   "rich",
 ]
 
-[tool.hatch.envs.examples.scripts]
+[tool.hatch.envs.example.scripts]
 data-generation = "python examples/data_generation.py"
-dependency-tree = "python examples/dependency_tree.py"
+feature-tree = "python examples/feature_tree.py"
 serialization = "python examples/serialization.py"
+validation = "python examples/validation.py"
 
 [[tool.hatch.envs.test.matrix]]
 python = ["311"]

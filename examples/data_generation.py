@@ -1,6 +1,6 @@
 from rich.pretty import pprint
 
-from udg import Builder, Generator
+from udg import Builder, Generator, ModelDefinition
 from udg.data import wroclaw
 from udg.features import HouseholdFeature
 from udg.features.household import CarNumber
@@ -22,10 +22,11 @@ if __name__ == "__main__":
     generator_classes = collect_generators(wroclaw.z_palca)
     generators = (generator_cls() for generator_cls in generator_classes)
 
-    builder = Builder(
+    model_definition = ModelDefinition.from_generators(
         *generators,
         WealthGenerator(),
     )
 
+    builder = Builder(model_definition)
     traffic_model = builder.build_model(household_number=2)
     pprint(traffic_model)

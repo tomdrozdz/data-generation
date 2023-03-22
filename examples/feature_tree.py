@@ -1,9 +1,9 @@
-from udg import Builder, Generator
+from udg import Generator, ModelDefinition
 from udg.data import wroclaw
 from udg.features import HouseholdFeature
 from udg.features.household import CarNumber
 from udg.utils import collect_generators
-from udg.visualization import ModelTree
+from udg.visualization import AsciiFeatureTree
 
 
 class Wealth(HouseholdFeature, str):
@@ -19,5 +19,9 @@ if __name__ == "__main__":
     generator_classes = collect_generators(wroclaw.z_palca)
     generators = (generator_cls() for generator_cls in generator_classes)
 
-    builder = Builder(*generators, WealthGenerator())
-    ModelTree(builder).print()
+    model_definition = ModelDefinition.from_generators(
+        *generators,
+        WealthGenerator(),
+    )
+
+    AsciiFeatureTree(model_definition).print()

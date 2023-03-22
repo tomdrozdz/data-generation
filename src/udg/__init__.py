@@ -1,2 +1,2 @@
 from .data import Generator
-from .model import Builder, TrafficModel
+from .model import Builder, ModelDefinition, TrafficModel

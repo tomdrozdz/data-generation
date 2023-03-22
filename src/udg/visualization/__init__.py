@@ -1,1 +1,1 @@
-from .model import ModelTree
+from .model import AsciiFeatureTree
