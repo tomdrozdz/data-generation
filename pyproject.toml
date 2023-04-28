@@ -22,6 +22,7 @@ dependencies = [
   "attrs",
   "base58",
   "cattrs",
+  "numpy",
 ]
 dynamic = ["version"]
 
@@ -63,6 +64,8 @@ data-generation = "python examples/data_generation.py"
 feature-tree = "python examples/feature_tree.py"
 serialization = "python examples/serialization.py"
 validation = "python examples/validation.py"
+real = "python examples/real.py"
+a = "python examples/a.py"
 
 [[tool.hatch.envs.test.matrix]]
 python = ["311"]

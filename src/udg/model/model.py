@@ -7,7 +7,7 @@ from udg.features.household import PersonNumber
 from udg.features.person import Schedule
 from udg.utils import generate_id
 
-from .serialization import feature_dicts
+from ..serialization import feature_dicts
 
 
 @attr.define
