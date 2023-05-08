@@ -2,20 +2,41 @@ import abc
 import json
 import random
 import typing as t
+from functools import partial
 from pathlib import Path
 
 import attr
 
 from udg.features import HouseholdFeature, PersonFeature
+from udg.features.person import Age
 
 T = t.TypeVar("T")
 DATA = Path(__file__).parent.parent / "_data"
 
 
-def load_json(relative_path: str) -> dict:
+def _structure_dict(data: dict, structure: list[t.Callable] | None) -> dict:
+    if not structure:
+        return data
+
+    cls, *rest = structure
+    return {cls(k): _structure_dict(v, rest) for k, v in data.items()}
+
+
+def load_json(relative_path: str, structure: list[t.Callable] | None = None) -> dict:
     path = DATA / relative_path
     with path.open() as f:
-        return json.load(f)
+        data = json.load(f)
+
+    return _structure_dict(data, structure)
+
+
+class Range(t.Generic[T]):
+    def __init__(self, cls: type[T], str_repr: str) -> None:
+        start_str, end_str = str_repr.split("-")
+        self.start, self.end = cls(start_str), cls(end_str)  # type: ignore[call-arg]
+
+
+AgeRange = partial(Range, Age)
 
 
 class RangeDict(dict, t.Generic[T]):

@@ -1,10 +1,9 @@
 import datetime as dt
 import enum
 
-import cattrs
-
 from udg.data.generator import Generator
 from udg.data.utils import (
+    AgeRange,
     BinomialSampler,
     ConditionalSampler,
     MultinomialSampler,
@@ -177,10 +176,15 @@ class Destination(enum.Enum):
 
 class ScheduleMaker(Generator[Schedule]):
     def __init__(self) -> None:
-        any_travel_data = cattrs.structure(
-            load_json("wroclaw/unsorted/any_travel.json"),
-            dict[Sex, dict[Age, dict]],
+        any_travel_data = (
+            load_json(
+                "wroclaw/unsorted/any_travel.json",
+                structure=[AgeRange, Sex],
+            ),
         )
+
+        print(any_travel_data)
+
         self._any_travel = ConditionalSampler[bool](
             data={
                 sex: {
