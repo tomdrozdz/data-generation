@@ -10,6 +10,7 @@ from ..base import PersonFeature
 
 @attr.define
 class Stop:
+    start_time: dt.time
     place: str
 
 

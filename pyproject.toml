@@ -23,6 +23,7 @@ dependencies = [
   "base58",
   "cattrs",
   "numpy",
+  "polars",
 ]
 dynamic = ["version"]
 
@@ -145,6 +146,7 @@ select = [
 ]
 
 ignore = [
+    "B905",
     "E501",
     "E741",
     "N818",
@@ -154,6 +156,7 @@ ignore = [
     "ANN002",
     "ANN003",
     "ANN10",
+    "ANN401",
     "G00",
     "PD901",
 ]

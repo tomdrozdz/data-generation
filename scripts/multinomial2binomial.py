@@ -2,20 +2,16 @@
 
 import argparse
 import json
+import typing as t
 from pathlib import Path
 
 
-def _transform(data) -> None:
-    for k, v in data.items():
-        match v:
-            case {"0": _, "1": pos_prob}:
-                data[k] = pos_prob
-            case _:
-                multinomial2binomial(v)
-
-
-def multinomial2binomial(data: dict[str, dict]) -> dict[str, dict[str, dict]]:
-    return {k: _transform(v) for k, v in data.items()}
+def multinomial2binomial(data: dict[str, t.Any]) -> dict[str, t.Any]:
+    match data:
+        case {"0": _, "1": pos_prob}:
+            return pos_prob
+        case _:
+            return {k: multinomial2binomial(v) for k, v in data.items()}
 
 
 def parse_args() -> argparse.Namespace:

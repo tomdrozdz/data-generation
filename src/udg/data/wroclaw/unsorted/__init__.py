@@ -1,1 +1,1 @@
-from . import age_sex, person_number, region, schedule
+from . import age_sex, region, schedule

@@ -1,16 +1,16 @@
 from udg.data.generator import Generator
 from udg.data.utils import MultinomialSampler, load_json
-from udg.features.household import Region
+from udg.features.household import PersonNumber
 
 
-class RegionSampler(Generator[Region]):
+class PersonNumberSampler(Generator[PersonNumber]):
     def __init__(self) -> None:
         self._sampler = MultinomialSampler.from_dict(
             load_json(
-                "wroclaw/unsorted/region.json",
-                structure=[Region],
+                "wroclaw/wds2017/person_number.json",
+                structure=[PersonNumber],
             )
         )
 
-    def generate(self) -> Region:
+    def generate(self) -> PersonNumber:
         return self._sampler.sample()
