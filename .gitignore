@@ -131,3 +131,4 @@ models/
 results/
 
 .ruff_cache
+data/
