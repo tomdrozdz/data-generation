@@ -1,6 +1,7 @@
 import typing as t
 
 import attr
+from tqdm import trange
 
 from udg.features.base import Feature
 from udg.features.household import PersonNumber
@@ -62,6 +63,12 @@ class Builder:
         persons = [self._build_person(context) for _ in range(person_number)]
         return Household(persons=persons, features=household_features)
 
-    def build_model(self, household_number: int) -> TrafficModel:
-        households = [self._build_household() for _ in range(household_number)]
+    def build_model(self, household_number: int, tqdm: bool = False) -> TrafficModel:
+        households = [
+            self._build_household()
+            for _ in trange(
+                household_number,
+                disable=not tqdm,
+            )
+        ]
         return TrafficModel(households=households)

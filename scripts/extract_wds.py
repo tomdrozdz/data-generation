@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
-from enum import Enum
 import json
 import typing as t
+from enum import Enum
 from pathlib import Path
 
 import polars as pl
@@ -19,8 +19,12 @@ class Features(Enum):
         return self.value
 
 
+def read_wds() -> pl.DataFrame:
+    return pl.read_csv(WDS_FILE, separator="\t")
+
+
 def extract_person_number() -> dict[str, t.Any]:
-    data = pl.read_csv(WDS_FILE, separator="\t")
+    data = read_wds()
     person_numbers = data["G1.int"]
     counts = person_numbers.value_counts()
     dist = counts.select(pl.col("G1.int"), pl.col("counts") / counts["counts"].sum())
@@ -28,7 +32,7 @@ def extract_person_number() -> dict[str, t.Any]:
 
 
 def extract_children_number() -> dict[str, t.Any]:
-    data = pl.read_csv(WDS_FILE, separator="\t")
+    data = read_wds()
     numbers = data.select(
         pl.col("G1.int"),
         pl.col("G6.int").apply(lambda x: 0 if x == -9 else x),

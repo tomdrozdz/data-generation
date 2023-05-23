@@ -24,6 +24,7 @@ dependencies = [
   "cattrs",
   "numpy",
   "polars",
+  "tqdm",
 ]
 dynamic = ["version"]
 
@@ -54,6 +55,17 @@ test = "pytest {args:tests/}"
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src/udg {args:tests/}"
 mypy = "python -m mypy src tests"
 lint = "python -m ruff --extend-select I --extend-select E501 src tests"
+
+[tool.hatch.envs.script]
+dependencies = [
+  "xlsx2csv",
+]
+
+[tool.hatch.envs.script.scripts]
+agesex2conditional = "python scripts/agesex2conditional.py {args}"
+multinomial2binomial = "python scripts/multinomial2binomial.py {args}"
+extract-wds = "python scripts/extract_wds.py {args}"
+extract-gadow = "python scripts/extract_gadow.py {args}"
 
 [tool.hatch.envs.example]
 dependencies = [

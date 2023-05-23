@@ -130,7 +130,7 @@ class ScheduleMaker(Generator[Schedule]):
             )
 
             start_time = (
-                dt.datetime.combine(dt.date(1, 1, 1), start_time) + spend_time
+                dt.datetime.combine(dt.date(2, 2, 2), start_time) + spend_time
             ).time()
             spend_time = dt.timedelta(
                 minutes=round(self._spend_time.sample(age, sex, destination))

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from rich.pretty import pprint
 
 from udg import Builder, ModelDefinition
@@ -17,5 +19,9 @@ if __name__ == "__main__":
     )
 
     builder = Builder(model_definition)
-    traffic_model = builder.build_model(household_number=1)
+    traffic_model = builder.build_model(household_number=2)
+
     pprint(traffic_model)
+
+    save_file = Path(__file__).parent.parent / "matsim.xml"
+    traffic_model.to_matsim_xml().write(save_file, xml_declaration=True)
