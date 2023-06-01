@@ -1,8 +1,8 @@
 {
-    "dom": 0.0,
-    "praca": 0.0,
-    "szkola": 0.0,
-    "uczelnia": 0.0,
+    "home": 0.0,
+    "work": 0.0,
+    "school": 0.0,
+    "university": 0.0,
     "adults_entertainment": 0.0,
     "culture_and_entertainment": 0.0,
     "gastronomy": 0.0,

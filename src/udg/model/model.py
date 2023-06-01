@@ -48,17 +48,18 @@ class Person:
         plan = ET.SubElement(person, "plan", selected="yes")
         for stop in schedule.stops:
             assert isinstance(stop, SetLengthStop)
-            activity = ET.SubElement(
+            ET.SubElement(
                 plan,
                 "activity",
-                type="?",
-                link=stop.place,
+                facility_id=stop.place.id,
+                x=str(stop.place.x),
+                y=str(stop.place.y),
                 end_time=(
                     dt.datetime.combine(dt.date(2, 2, 2), stop.start_time)
                     + stop.duration
                 ).strftime("%H:%M:%S"),
             )
-            leg = ET.SubElement(plan, "leg", mode="?")
+            ET.SubElement(plan, "leg", mode=stop.transport_mode.value)
 
         return person
 

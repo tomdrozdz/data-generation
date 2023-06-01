@@ -2,6 +2,8 @@ import datetime as dt
 import enum
 import random
 
+import polars as pl
+
 from udg.data.generator import Generator
 from udg.data.utils import (
     AgeRange,
@@ -9,17 +11,20 @@ from udg.data.utils import (
     ConditionalSampler,
     MultinomialSampler,
     NormalSampler,
+    load_csv,
     load_json,
 )
+from udg.features.household.home_region import HomeRegion, Region
 from udg.features.person import Age, Schedule, Sex
-from udg.features.person.schedule import SetEndStop, SetLengthStop
+from udg.features.person.schedule import SetEndStop, SetLengthStop, TransportMode
+from udg.types import Place, Time, TransportMode
 
 
-class Destination(enum.Enum):
-    HOME = "dom"
-    WORK = "praca"
-    SCHOOL = "szkola"
-    UNIVERSITY = "uczelnia"
+class DestinationType(enum.Enum):
+    HOME = "home"
+    WORK = "work"
+    SCHOOL = "school"
+    UNIVERSITY = "university"
     ADULTS_ENTERTAINMENT = "adults_entertainment"
     CULTURE = "culture_and_entertainment"
     GASTRONOMY = "gastronomy"
@@ -51,7 +56,7 @@ class ScheduleMaker(Generator[Schedule]):
         self._cancel_trip = ConditionalSampler[bool](
             data=load_json(
                 "wroclaw/unsorted/trip_cancel.json",
-                structure=[Destination],
+                structure=[DestinationType],
                 out=BinomialSampler,
             )
         )
@@ -59,7 +64,7 @@ class ScheduleMaker(Generator[Schedule]):
         self._start_hour = ConditionalSampler[int](
             data=load_json(
                 "wroclaw/unsorted/start_hour.json",
-                structure=[Destination, int],
+                structure=[DestinationType, int],
                 out=MultinomialSampler,
             )
         )
@@ -72,10 +77,10 @@ class ScheduleMaker(Generator[Schedule]):
             )
         )
 
-        self._other_travels = ConditionalSampler[Destination](
+        self._other_travels = ConditionalSampler[DestinationType](
             data=load_json(
                 "wroclaw/unsorted/other_travels.json",
-                structure=[AgeRange, Sex, Destination],
+                structure=[AgeRange, Sex, DestinationType],
                 out=MultinomialSampler,
             )
         )
@@ -83,12 +88,52 @@ class ScheduleMaker(Generator[Schedule]):
         self._spend_time = ConditionalSampler[int](
             data=load_json(
                 "wroclaw/unsorted/spend_time.json",
-                structure=[AgeRange, Sex, Destination, str],
+                structure=[AgeRange, Sex, DestinationType, str],
                 out=NormalSampler,
             )
         )
 
-    def generate(self, age: Age, sex: Sex) -> Schedule:
+        self._gravities = ConditionalSampler[Region](
+            data=load_json(
+                "wroclaw/unsorted/gravities.json",
+                structure=[DestinationType, Region, Region],
+                out=MultinomialSampler,
+            )
+        )
+
+        self._facilities = load_csv("wroclaw/osm/facilities.csv")
+        self._tag_mapping = load_json(
+            "osm/tag_mappings.json",
+            structure=[DestinationType],
+            out=set,
+        )
+
+    def _region_to_place(self, region: Region, dest_type: DestinationType) -> Place:
+        tags = self._tag_mapping[dest_type]
+        filtered = self._facilities.filter(
+            pl.col("tag").is_in(tags) & (pl.col("region_id") == region)
+        )
+
+        if filtered.is_empty():
+            # TODO: Is this really the correct approach? Isn't it better to take
+            # anything in the region?
+            filtered = self._facilities.filter(pl.col("tag").is_in(tags))
+
+        id_, region_id, x, y = (
+            filtered.sample()
+            .select(
+                "id",
+                "region_id",
+                "x",
+                "y",
+            )
+            .row(0)
+        )
+        return Place(id=id_, region=Region(region_id), x=x, y=y)
+
+    def generate(self, age: Age, sex: Sex, home_region: HomeRegion) -> Schedule:
+        region_home = Region(home_region)
+
         if age <= 5:
             return Schedule(stops=[])
 
@@ -97,50 +142,55 @@ class ScheduleMaker(Generator[Schedule]):
 
         stops: list[SetEndStop | SetLengthStop] = []
 
-        travel_chain = self._travel_chains.sample(age, sex).split(",")
-        first_destination_str = travel_chain[0]
-        first_destination = (
-            Destination(first_destination_str)
-            if first_destination_str != "inne"
+        first_dest_str, *travel_chain = self._travel_chains.sample(age, sex).split(",")
+        first_dest = (
+            DestinationType(first_dest_str)
+            if first_dest_str != "inne"
             else self._other_travels.sample(age, sex)
         )
 
-        start_time = dt.time(
-            hour=self._start_hour.sample(first_destination),
-            minute=random.randint(0, 59),
-        )
-        spend_time = dt.timedelta(
-            minutes=round(self._spend_time.sample(age, sex, first_destination))
-        )
+        if not self._cancel_trip.sample(first_dest):
+            start_time = Time(
+                hour=self._start_hour.sample(first_dest),
+                minute=random.randint(0, 59),
+            )
+            spend_time = dt.timedelta(
+                minutes=round(self._spend_time.sample(age, sex, first_dest))
+            )
+            dest_region = self._gravities.sample(first_dest, region_home)
 
-        if not self._cancel_trip.sample(first_destination):
             stops.append(
                 SetLengthStop(
                     start_time=start_time,
-                    place=first_destination.value,
+                    place=self._region_to_place(dest_region, first_dest),
+                    transport_mode=TransportMode.CAR,
                     duration=spend_time,
                 )
             )
 
-        for destination_str in travel_chain[1:]:
-            destination = (
-                Destination(destination_str)
-                if destination_str != "inne"
+        for dest_str in travel_chain:
+            dest = (
+                DestinationType(dest_str)
+                if dest_str != "inne"
                 else self._other_travels.sample(age, sex)
             )
 
-            start_time = (
-                dt.datetime.combine(dt.date(2, 2, 2), start_time) + spend_time
-            ).time()
+            start_time = start_time + spend_time
             spend_time = dt.timedelta(
-                minutes=round(self._spend_time.sample(age, sex, destination))
+                minutes=round(self._spend_time.sample(age, sex, dest))
+            )
+            dest_region = (
+                self._gravities.sample(dest, region_home)
+                if dest is not DestinationType.HOME
+                else region_home
             )
 
-            if not self._cancel_trip.sample(destination):
+            if not self._cancel_trip.sample(dest):
                 stops.append(
                     SetLengthStop(
                         start_time=start_time,
-                        place=destination.value,
+                        place=self._region_to_place(dest_region, dest),
+                        transport_mode=TransportMode.CAR,
                         duration=spend_time,
                     )
                 )

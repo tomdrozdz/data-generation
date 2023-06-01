@@ -23,6 +23,7 @@ dependencies = [
   "base58",
   "cattrs",
   "numpy",
+  "orjson",
   "polars",
   "tqdm",
 ]
@@ -58,14 +59,17 @@ lint = "python -m ruff --extend-select I --extend-select E501 src tests"
 
 [tool.hatch.envs.script]
 dependencies = [
+  "geopandas",
+  "osmnx",
+  "pandas",
   "xlsx2csv",
 ]
 
 [tool.hatch.envs.script.scripts]
-agesex2conditional = "python scripts/agesex2conditional.py {args}"
-multinomial2binomial = "python scripts/multinomial2binomial.py {args}"
-extract-wds = "python scripts/extract_wds.py {args}"
-extract-gadow = "python scripts/extract_gadow.py {args}"
+agesex2conditional = "python scripts/dists/agesex2conditional.py {args}"
+multinomial2binomial = "python scripts/dists/multinomial2binomial.py {args}"
+extract-wds = "python scripts/data/extract_wds.py {args}"
+extract-gadow = "python scripts/data/extract_gadow.py {args}"
 
 [tool.hatch.envs.example]
 dependencies = [
@@ -161,10 +165,12 @@ ignore = [
     "B905",
     "E501",
     "E741",
+    "N817",
     "N818",
     "D1",
+    "D200",
     "D203",
-    "D213",
+    "D212",
     "ANN002",
     "ANN003",
     "ANN10",
@@ -202,6 +208,7 @@ exclude = [
 "__init__.py" = ["F401"]
 "tests/*" = ["ANN"]
 "examples/*" = ["INP"]
+"scripts/*" = ["INP"]
 
 [tool.ruff.isort]
 known-first-party = ["udg"]

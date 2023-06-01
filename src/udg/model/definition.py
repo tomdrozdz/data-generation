@@ -10,6 +10,7 @@ from udg.data.generator import Generator
 from udg.features.base import Feature, HouseholdFeature, PersonFeature
 from udg.features.household import PersonNumber
 from udg.features.person import Schedule
+from udg.model.model import Household
 
 
 class ModelDefinitionError(Exception):
@@ -107,7 +108,10 @@ class ModelDefinition:
                     f"(required by '{generator.__name__}')"
                 )
                 for feature, requirement, generator in requirements
-                if requirement not in self.building_blocks
+                if (
+                    requirement not in self.building_blocks
+                    and requirement is not Household  # type: ignore[comparison-overlap]
+                )
             ),
             *(
                 MultipleGeneratorsError(

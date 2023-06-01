@@ -1,10 +1,11 @@
 import abc
-import json
 import random
 import typing as t
 from pathlib import Path
 
 import attr
+import orjson
+import polars as pl
 
 from udg.features import HouseholdFeature, PersonFeature
 from udg.features.person import Age
@@ -39,10 +40,12 @@ def load_json(
     out: t.Callable | None = None,
 ) -> dict:
     path = DATA / relative_path
-    with path.open() as f:
-        data = json.load(f)
-
+    data = orjson.loads(path.read_text())
     return _structure_dict(data, structure, out)
+
+
+def load_csv(relative_path: str) -> pl.DataFrame:
+    return pl.read_csv(DATA / relative_path)
 
 
 class AgeRange:
