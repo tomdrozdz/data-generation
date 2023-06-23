@@ -1,10 +1,5 @@
 # Urban Data Generation (working title)
 
-## TODO
-
-* `TrafficModel.get_schedule_dicts/json` that will allow to generate a JSON
-  with only the `Person`'s ID and simple `Schedule` data.
-
 ## Examples
 
 ```
@@ -21,6 +16,10 @@ hatch run example:serialization
 
 ```
 hatch run example:validation
+```
+
+```
+hatch run example:real
 ```
 
 (`pip install hatch`)
