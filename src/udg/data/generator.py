@@ -3,13 +3,15 @@ import typing as t
 
 import attr
 
-from udg.features.base import HouseholdFeature, PersonFeature
+from udg.features.base import FamilyFeature, HouseholdFeature, PersonFeature
 
 ThingToGenerate = t.TypeVar(
     "ThingToGenerate",
     bound=HouseholdFeature
+    | FamilyFeature
     | PersonFeature
     | tuple[HouseholdFeature, ...]
+    | tuple[FamilyFeature, ...]
     | tuple[PersonFeature, ...],
 )
 

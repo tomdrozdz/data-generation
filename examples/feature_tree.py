@@ -1,7 +1,7 @@
 from udg import Generator, ModelDefinition
 from udg.data import wroclaw
 from udg.features import HouseholdFeature
-from udg.features.household import CarNumber
+from udg.features.family import CarNumber
 from udg.utils import collect_generators
 from udg.visualization import AsciiFeatureTree
 

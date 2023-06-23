@@ -6,7 +6,7 @@ from rich.tree import Tree
 
 from udg.features.base import Feature
 from udg.model.definition import ModelDefinition
-from udg.model.model import Household, Person
+from udg.model.model import Family, Household, Person
 
 
 class AsciiFeatureTree:
@@ -39,19 +39,26 @@ class AsciiFeatureTree:
 
     def build_tree(self) -> Tree:
         household_features = self._model_definition.household_features
+        family_features = self._model_definition.family_features
         person_features = self._model_definition.person_features
         requirements = {
-            feature: tuple(block.requirements.values())
+            feature: tuple(
+                v for v in block.requirements.values() if v not in {Family, Household}
+            )
             for feature, block in self._model_definition.building_blocks.items()
         }
         count_requirements = partial(self._count, requirements=requirements)
 
         model = Tree("[red]Model")
         household_tree = model.add(f"[blue]{Household.__name__}")
+        family_tree = model.add(f"[yellow]{Family.__name__}")
         person_tree = model.add(f"[green]{Person.__name__}")
 
         for household_feature in sorted(household_features, key=count_requirements):
             self._add(household_tree, household_feature, requirements, "[turquoise2]")
+
+        for family_feature in sorted(family_features, key=count_requirements):
+            self._add(family_tree, family_feature, requirements, "[yellow1]")
 
         for person_feature in sorted(person_features, key=count_requirements):
             self._add(person_tree, person_feature, requirements, "[light_green]")

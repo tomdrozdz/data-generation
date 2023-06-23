@@ -1,2 +1,2 @@
-from . import household, person
-from .base import HouseholdFeature, PersonFeature
+from . import family, household, person
+from .base import FamilyFeature, HouseholdFeature, PersonFeature

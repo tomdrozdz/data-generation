@@ -2,6 +2,8 @@ import datetime as dt
 
 import attr
 
+from udg.types import Place, Time, TransportMode
+
 from ..base import PersonFeature
 
 # TODO: Is `start_time` a property of `Schedule`? Does every `Stop` has a `start_time`?
@@ -10,7 +12,9 @@ from ..base import PersonFeature
 
 @attr.define
 class Stop:
-    place: str
+    start_time: Time
+    place: Place
+    transport_mode: TransportMode
 
 
 @attr.define
@@ -20,7 +24,7 @@ class SetLengthStop(Stop):
 
 @attr.define
 class SetEndStop(Stop):
-    end_time: dt.time
+    end_time: Time
 
 
 @attr.define

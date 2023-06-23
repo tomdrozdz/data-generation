@@ -1,0 +1,858 @@
+{
+    "6-15": {
+        "F": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 150,
+                "scale": 30
+            },
+            "school": {
+                "loc": 354,
+                "scale": 60
+            },
+            "university": {
+                "loc": 120,
+                "scale": 20
+            },
+            "adults_entertainment": {
+                "loc": 0,
+                "scale": 0
+            },
+            "culture_and_entertainment": {
+                "loc": 81,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 89,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 58,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 58,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 105,
+                "scale": 15
+            }
+        },
+        "M": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 150,
+                "scale": 30
+            },
+            "school": {
+                "loc": 354,
+                "scale": 60
+            },
+            "university": {
+                "loc": 120,
+                "scale": 20
+            },
+            "adults_entertainment": {
+                "loc": 0,
+                "scale": 0
+            },
+            "culture_and_entertainment": {
+                "loc": 81,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 89,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 58,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 58,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 105,
+                "scale": 15
+            }
+        }
+    },
+    "16-19": {
+        "F": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 348,
+                "scale": 30
+            },
+            "school": {
+                "loc": 374,
+                "scale": 60
+            },
+            "university": {
+                "loc": 374,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 112,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 112,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 110,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 56,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 56,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 108,
+                "scale": 15
+            }
+        },
+        "M": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 348,
+                "scale": 30
+            },
+            "school": {
+                "loc": 374,
+                "scale": 60
+            },
+            "university": {
+                "loc": 374,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 112,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 112,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 110,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 56,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 56,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 108,
+                "scale": 15
+            }
+        }
+    },
+    "20-24": {
+        "F": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 360,
+                "scale": 90
+            },
+            "school": {
+                "loc": 300,
+                "scale": 60
+            },
+            "university": {
+                "loc": 300,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 121,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 121,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 107,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 52,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 52,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 97,
+                "scale": 15
+            }
+        },
+        "M": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 360,
+                "scale": 90
+            },
+            "school": {
+                "loc": 300,
+                "scale": 60
+            },
+            "university": {
+                "loc": 300,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 121,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 121,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 107,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 52,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 52,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 97,
+                "scale": 15
+            }
+        }
+    },
+    "25-44": {
+        "F": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 469,
+                "scale": 90
+            },
+            "school": {
+                "loc": 245,
+                "scale": 60
+            },
+            "university": {
+                "loc": 245,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 90,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 90,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 108,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 53,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 53,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 89,
+                "scale": 15
+            }
+        },
+        "M": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 469,
+                "scale": 90
+            },
+            "school": {
+                "loc": 245,
+                "scale": 60
+            },
+            "university": {
+                "loc": 245,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 90,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 90,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 108,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 53,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 53,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 89,
+                "scale": 15
+            }
+        }
+    },
+    "45-60": {
+        "F": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 451,
+                "scale": 90
+            },
+            "school": {
+                "loc": 210,
+                "scale": 60
+            },
+            "university": {
+                "loc": 210,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 92,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 92,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 103,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 59,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 59,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 88,
+                "scale": 15
+            }
+        }
+    },
+    "45-65": {
+        "M": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 451,
+                "scale": 90
+            },
+            "school": {
+                "loc": 210,
+                "scale": 60
+            },
+            "university": {
+                "loc": 210,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 92,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 92,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 103,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 59,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 59,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 88,
+                "scale": 15
+            }
+        }
+    },
+    "61-99": {
+        "F": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 343,
+                "scale": 90
+            },
+            "school": {
+                "loc": 210,
+                "scale": 60
+            },
+            "university": {
+                "loc": 210,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 109,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 109,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 101,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 61,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 61,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 86,
+                "scale": 15
+            }
+        }
+    },
+    "66-99": {
+        "M": {
+            "home": {
+                "loc": 120,
+                "scale": 60
+            },
+            "work": {
+                "loc": 343,
+                "scale": 90
+            },
+            "school": {
+                "loc": 210,
+                "scale": 60
+            },
+            "university": {
+                "loc": 210,
+                "scale": 60
+            },
+            "adults_entertainment": {
+                "loc": 109,
+                "scale": 20
+            },
+            "culture_and_entertainment": {
+                "loc": 109,
+                "scale": 20
+            },
+            "gastronomy": {
+                "loc": 40,
+                "scale": 10
+            },
+            "grocery_shopping": {
+                "loc": 40,
+                "scale": 10
+            },
+            "healthcare": {
+                "loc": 40,
+                "scale": 10
+            },
+            "leisure_time_schools": {
+                "loc": 101,
+                "scale": 15
+            },
+            "official_matters": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other": {
+                "loc": 40,
+                "scale": 10
+            },
+            "other_shopping": {
+                "loc": 61,
+                "scale": 15
+            },
+            "pharmacy": {
+                "loc": 15,
+                "scale": 2
+            },
+            "religion": {
+                "loc": 60,
+                "scale": 15
+            },
+            "services": {
+                "loc": 61,
+                "scale": 15
+            },
+            "sport": {
+                "loc": 86,
+                "scale": 15
+            }
+        }
+    }
+}

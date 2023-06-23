@@ -131,3 +131,11 @@ models/
 results/
 
 .ruff_cache
+/data/
+/cache
+
+src/udg/_data/wroclaw/*
+!src/udg/_data/wroclaw/unsorted
+/*.csv
+/*.json
+/*.png
