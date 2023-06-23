@@ -1,16 +1,20 @@
 import functools
 import typing as t
 
-from udg.features.base import HouseholdFeature, PersonFeature
+from udg.features.base import FamilyFeature, HouseholdFeature, PersonFeature
 
 from .converter import converter
 
-FeatureType = t.TypeVar("FeatureType", HouseholdFeature, PersonFeature)
+FeatureType = t.TypeVar("FeatureType", HouseholdFeature, PersonFeature, FamilyFeature)
 
 
 @functools.cache
 def _get_type(name: str) -> type[FeatureType]:
-    type_ = HouseholdFeature.subclasses.get(name) or PersonFeature.subclasses.get(name)
+    type_ = (
+        HouseholdFeature.subclasses.get(name)
+        or FamilyFeature.subclasses.get(name)
+        or PersonFeature.subclasses.get(name)
+    )
 
     if type_ is None:
         # TODO: Add an option to pass extra user defined types somewhere,

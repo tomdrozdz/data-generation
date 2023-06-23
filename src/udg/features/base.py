@@ -29,5 +29,9 @@ class PersonFeature(Feature, UniqueSubclassesMixin):
     pass
 
 
+class FamilyFeature(Feature, UniqueSubclassesMixin):
+    pass
+
+
 class HouseholdFeature(Feature, UniqueSubclassesMixin):
     pass

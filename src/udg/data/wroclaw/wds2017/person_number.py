@@ -1,6 +1,6 @@
 from udg.data.generator import Generator
 from udg.data.utils import MultinomialSampler, load_json
-from udg.features.household import PersonNumber
+from udg.features.family import PersonNumber
 
 
 class PersonNumberSampler(Generator[PersonNumber]):

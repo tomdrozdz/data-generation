@@ -2,9 +2,17 @@ import datetime as dt
 import random
 
 from udg.data.generator import Generator
-from udg.features.household import CarNumber, PersonNumber
+from udg.features.family import CarNumber, PersonNumber
+from udg.features.household import FamilyNumber
 from udg.features.person import Age, Schedule, Sex
 from udg.features.person.schedule import SetEndStop, SetLengthStop
+from udg.types import Place, Region, Time, TransportMode
+
+
+class FamilyNumberSampler(Generator[FamilyNumber]):
+    def generate(self) -> FamilyNumber:
+        family_number = random.choice([1, 2, 3])
+        return FamilyNumber(family_number)
 
 
 class PersonNumberSampler(Generator[PersonNumber]):
@@ -35,8 +43,18 @@ class ScheduleMaker(Generator[Schedule]):
         ...
 
         stops: list[SetEndStop | SetLengthStop] = [
-            SetEndStop(place="University", end_time=dt.time(15, 15)),
-            SetLengthStop(place="Restaurant", duration=dt.timedelta(hours=1)),
+            SetEndStop(
+                start_time=Time(hour=8),
+                place=Place(id="1", region=Region(1), x=1, y=1),
+                transport_mode=TransportMode.CAR,
+                end_time=Time(hour=8),
+            ),
+            SetLengthStop(
+                start_time=Time(hour=8),
+                place=Place(id="2", region=Region(2), x=2, y=2),
+                transport_mode=TransportMode.CAR,
+                duration=dt.timedelta(hours=1),
+            ),
         ]
 
         return Schedule(stops=stops)

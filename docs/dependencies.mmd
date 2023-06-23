@@ -1,0 +1,58 @@
+flowchart LR
+    home["Budynek"]
+    household_structure["Struktura gospodarstwa"]
+    family_number["Liczba rodzin"]
+
+    household["Gospodarstwo domowe"]
+    family["Rodzina"]
+    person["Człowiek"]
+
+    family_type["Typ rodziny"]
+    person_number["Liczba osób"]
+    child_number["Liczba dzieci"]
+    car_number["Liczba samochodów"]
+    bike_number["Liczba rowerów"]
+
+    role["Rola"]
+    sex["Płeć"]
+    age["Wiek"]
+    transport_preferences["Preferencje transportowe"]
+    schedule["Plan dnia"]
+
+    home --> household
+    household_structure --> household
+    household_structure --> family_number
+    family_number --> household
+
+    household --> family_type
+    family_type --> family
+    family_type --> child_number
+    child_number --> family
+    family_type --> bike_number
+    child_number --> bike_number
+    bike_number --> family
+    car_number --> family
+    family_type --> car_number
+    child_number --> car_number
+    person_number --> family
+    household --> person_number
+    family_type --> person_number
+    child_number --> person_number
+
+    role --> person
+    family --> role
+    sex --> person
+    role --> sex
+    age --> person
+    family --> age
+    role --> age
+    sex --> age
+    transport_preferences --> person
+    age --> transport_preferences
+    sex --> transport_preferences
+    schedule --> person
+    family --> schedule
+    age --> schedule
+    sex --> schedule
+    family --> schedule
+    transport_preferences --> schedule

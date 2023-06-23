@@ -7,17 +7,20 @@ import polars as pl
 from udg.data.generator import Generator
 from udg.data.utils import (
     AgeRange,
+    AgeRangeDict,
     BinomialSampler,
     ConditionalSampler,
+    DecisionTree,
     MultinomialSampler,
     NormalSampler,
     load_csv,
     load_json,
 )
-from udg.features.household.home_region import HomeRegion, Region
-from udg.features.person import Age, Schedule, Sex
-from udg.features.person.schedule import SetEndStop, SetLengthStop, TransportMode
-from udg.types import Place, Time, TransportMode
+from udg.features.family import BikeNumber, CarNumber, PersonNumber
+from udg.features.household.home import Home
+from udg.features.person import Age, Schedule, Sex, TransportPreferences
+from udg.features.person.schedule import SetEndStop, SetLengthStop
+from udg.types import Place, Region, Time, TransportMode
 
 
 class DestinationType(enum.Enum):
@@ -101,6 +104,27 @@ class ScheduleMaker(Generator[Schedule]):
             )
         )
 
+        self._distances: dict[Region, dict[Region, float]] = load_json(
+            "wroclaw/unsorted/distances.json",
+            structure=[Region, Region],
+        )
+
+        self._transport_modes = DecisionTree.from_pickle(
+            "wroclaw/kbr/transport_mode.pkl",
+            out=TransportMode,
+        )
+
+        self._age_brackets = AgeRangeDict(
+            {
+                AgeRange("6-15"): 0,
+                AgeRange("16-19"): 1,
+                AgeRange("20-24"): 2,
+                AgeRange("25-44"): 3,
+                AgeRange("45-65"): 4,
+                AgeRange("66-100"): 5,
+            }
+        )
+
         self._facilities = load_csv("wroclaw/osm/facilities.csv")
         self._tag_mapping = load_json(
             "osm/tag_mappings.json",
@@ -131,9 +155,16 @@ class ScheduleMaker(Generator[Schedule]):
         )
         return Place(id=id_, region=Region(region_id), x=x, y=y)
 
-    def generate(self, age: Age, sex: Sex, home_region: HomeRegion) -> Schedule:
-        region_home = Region(home_region)
-
+    def generate(
+        self,
+        person_number: PersonNumber,
+        car_number: CarNumber,
+        bike_number: BikeNumber,
+        age: Age,
+        sex: Sex,
+        home: Home,
+        transport_preferences: TransportPreferences,
+    ) -> Schedule:
         if age <= 5:
             return Schedule(stops=[])
 
@@ -141,6 +172,8 @@ class ScheduleMaker(Generator[Schedule]):
             return Schedule(stops=[])
 
         stops: list[SetEndStop | SetLengthStop] = []
+        age_bracket = self._age_brackets[age]
+        dest_region = home.region
 
         first_dest_str, *travel_chain = self._travel_chains.sample(age, sex).split(",")
         first_dest = (
@@ -157,17 +190,26 @@ class ScheduleMaker(Generator[Schedule]):
             spend_time = dt.timedelta(
                 minutes=round(self._spend_time.sample(age, sex, first_dest))
             )
-            dest_region = self._gravities.sample(first_dest, region_home)
+            dest_region = self._gravities.sample(first_dest, home.region)
+            transport_mode = self._transport_modes.predict(
+                *transport_preferences.as_input(),
+                person_number,
+                age_bracket,
+                car_number,
+                bike_number,
+                self._distances[home.region][dest_region],
+            )
 
             stops.append(
                 SetLengthStop(
                     start_time=start_time,
                     place=self._region_to_place(dest_region, first_dest),
-                    transport_mode=TransportMode.CAR,
+                    transport_mode=transport_mode,
                     duration=spend_time,
                 )
             )
 
+        current_region = dest_region
         for dest_str in travel_chain:
             dest = (
                 DestinationType(dest_str)
@@ -175,24 +217,36 @@ class ScheduleMaker(Generator[Schedule]):
                 else self._other_travels.sample(age, sex)
             )
 
+            if self._cancel_trip.sample(dest):
+                continue
+
             start_time = start_time + spend_time
             spend_time = dt.timedelta(
                 minutes=round(self._spend_time.sample(age, sex, dest))
             )
             dest_region = (
-                self._gravities.sample(dest, region_home)
+                self._gravities.sample(dest, current_region)
                 if dest is not DestinationType.HOME
-                else region_home
+                else home.region
+            )
+            transport_mode = self._transport_modes.predict(
+                *transport_preferences.as_input(),
+                person_number,
+                age_bracket,
+                car_number,
+                bike_number,
+                self._distances[current_region][dest_region],
             )
 
-            if not self._cancel_trip.sample(dest):
-                stops.append(
-                    SetLengthStop(
-                        start_time=start_time,
-                        place=self._region_to_place(dest_region, dest),
-                        transport_mode=TransportMode.CAR,
-                        duration=spend_time,
-                    )
+            stops.append(
+                SetLengthStop(
+                    start_time=start_time,
+                    place=self._region_to_place(dest_region, dest),
+                    transport_mode=transport_mode,
+                    duration=spend_time,
                 )
+            )
+
+            current_region = dest_region
 
         return Schedule(stops=stops)

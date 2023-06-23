@@ -7,10 +7,11 @@ from collections.abc import Mapping, Sequence
 import attr
 
 from udg.data.generator import Generator
-from udg.features.base import Feature, HouseholdFeature, PersonFeature
-from udg.features.household import PersonNumber
+from udg.features.base import FamilyFeature, Feature, HouseholdFeature, PersonFeature
+from udg.features.family import PersonNumber
+from udg.features.household import FamilyNumber
 from udg.features.person import Schedule
-from udg.model.model import Household
+from udg.model.model import Family, Household
 
 
 class ModelDefinitionError(Exception):
@@ -39,6 +40,7 @@ class Block:
 class ModelDefinition:
     building_blocks: Mapping[type[Feature], Block]
     household_features: Sequence[type[HouseholdFeature]]
+    family_features: Sequence[type[FamilyFeature]]
     person_features: Sequence[type[PersonFeature]]
 
     def __attrs_post_init__(self) -> None:
@@ -48,6 +50,7 @@ class ModelDefinition:
     def from_generators(cls, *generators: Generator) -> t.Self:
         building_blocks: dict[type[Feature], Block] = {}
         household_features: list[type[HouseholdFeature]] = []
+        family_features: list[type[FamilyFeature]] = []
         person_features: list[type[PersonFeature]] = []
 
         for generator in generators:
@@ -67,16 +70,21 @@ class ModelDefinition:
                 if issubclass(return_cls, PersonFeature):
                     person_features.append(return_cls)
 
+                if issubclass(return_cls, FamilyFeature):
+                    family_features.append(return_cls)
+
                 if issubclass(return_cls, HouseholdFeature):
                     household_features.append(return_cls)
 
         # Consistent order when debugging
         household_features.sort(key=lambda cls: cls.__name__)
+        family_features.sort(key=lambda cls: cls.__name__)
         person_features.sort(key=lambda cls: cls.__name__)
 
         return cls(
             building_blocks=types.MappingProxyType(building_blocks),
             household_features=tuple(household_features),
+            family_features=tuple(family_features),
             person_features=tuple(person_features),
         )
 
@@ -88,9 +96,14 @@ class ModelDefinition:
         }
         duplicates = (
             *_find_duplicates(self.person_features),
+            *_find_duplicates(self.family_features),
             *_find_duplicates(self.household_features),
         )
-        overlapping = set(self.person_features) & set(self.household_features)
+        overlapping = (
+            set(self.person_features)
+            & set(self.household_features)
+            & set(self.family_features)
+        )
 
         exceptions = [
             *(
@@ -98,7 +111,7 @@ class ModelDefinition:
                     f"Basic feature '{basic_feature.__name__}' is required "
                     "but no generator was provided for it"
                 )
-                for basic_feature in (Schedule, PersonNumber)
+                for basic_feature in (Schedule, PersonNumber, FamilyNumber)
                 if basic_feature not in self.building_blocks
             ),
             *(
@@ -111,6 +124,7 @@ class ModelDefinition:
                 if (
                     requirement not in self.building_blocks
                     and requirement is not Household  # type: ignore[comparison-overlap]
+                    and requirement is not Family  # type: ignore[comparison-overlap]
                 )
             ),
             *(
@@ -121,7 +135,7 @@ class ModelDefinition:
             ),
             *(
                 InvalidFeatureError(
-                    f"Feature '{feature.__name__}' is both person and household feature"
+                    f"Feature '{feature.__name__}' is a feature of two or more types"
                 )
                 for feature in overlapping
             ),

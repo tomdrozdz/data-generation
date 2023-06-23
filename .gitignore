@@ -136,3 +136,6 @@ results/
 
 src/udg/_data/wroclaw/*
 !src/udg/_data/wroclaw/unsorted
+/*.csv
+/*.json
+/*.png

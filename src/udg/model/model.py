@@ -4,8 +4,9 @@ from xml.etree import ElementTree as ET
 
 import attr
 
-from udg.features.base import HouseholdFeature, PersonFeature
-from udg.features.household import PersonNumber
+from udg.features.base import FamilyFeature, HouseholdFeature, PersonFeature
+from udg.features.family import PersonNumber
+from udg.features.household import FamilyNumber
 from udg.features.person import Schedule
 from udg.features.person.schedule import SetLengthStop
 from udg.utils import generate_id
@@ -65,10 +66,10 @@ class Person:
 
 
 @attr.define
-class Household:
+class Family:
     id: str = attr.field(factory=generate_id, kw_only=True)
     persons: list[Person]
-    features: dict[type[HouseholdFeature], HouseholdFeature]
+    features: dict[type[FamilyFeature], FamilyFeature]
 
     @property
     def person_number(self) -> PersonNumber:
@@ -94,6 +95,36 @@ class Household:
 
 
 @attr.define
+class Household:
+    id: str = attr.field(factory=generate_id, kw_only=True)
+    families: list[Family]
+    features: dict[type[HouseholdFeature], HouseholdFeature]
+
+    @property
+    def family_number(self) -> FamilyNumber:
+        return t.cast(FamilyNumber, self.features[FamilyNumber])
+
+    @classmethod
+    def from_dict(cls, data: dict) -> t.Self:
+        return cls(
+            id=data["id"],
+            families=[Family.from_dict(d) for d in data["families"]],
+            features=feature_dicts.deserialize(data["features"]),
+        )
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "families": [person.to_dict() for person in self.families],
+            "features": feature_dicts.serialize(self.features),
+        }
+
+    def to_matsim_xml(self) -> t.Iterator[ET.Element]:
+        for family in self.families:
+            yield from family.to_matsim_xml()
+
+
+@attr.define
 class TrafficModel:
     id: str = attr.field(factory=generate_id, kw_only=True)
     households: list[Household]
@@ -116,8 +147,16 @@ class TrafficModel:
         return len(self.households)
 
     @property
+    def family_count(self) -> int:
+        return sum(household.family_number for household in self.households)
+
+    @property
     def person_count(self) -> int:
-        return sum(household.person_number for household in self.households)
+        return sum(
+            family.person_number
+            for household in self.households
+            for family in household.families
+        )
 
     def to_matsim_xml(self) -> ET.ElementTree:
         population = ET.Element("population")

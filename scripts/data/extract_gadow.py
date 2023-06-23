@@ -13,7 +13,6 @@ GADOW_FILE = Path(__file__).parent.parent.parent / "data" / "KBR_Gadow_2019.xlsx
 
 class Features(Enum):
     PERSON_NUMBER = "person_number"
-    CHILDREN_NUMBER = "children_number"
 
     def __str__(self) -> str:
         return self.value
@@ -56,10 +55,8 @@ def main() -> None:
     match args.feature:
         case Features.PERSON_NUMBER:
             data = extract_person_number()
-    #     case Features.CHILDREN_NUMBER:
-    #         data = extract_children_number()
 
-    args.output_file.write_text(json.dumps(data, indent=4, sort_keys=True) + "\n")
+    args.output_file.write_text(json.dumps(data, indent=4) + "\n")
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ name = "udg"
 description = 'Urban Data Generation'
 readme = "README.md"
 requires-python = ">=3.11"
-license = "MIT"
+license = {text = "MIT"}
 keywords = []
 authors = [
   { name = "Tomasz Dróżdż", email = "t.p.drozdz@gmail.com" },
@@ -25,6 +25,7 @@ dependencies = [
   "numpy",
   "orjson",
   "polars",
+  "scikit-learn",
   "tqdm",
 ]
 dynamic = ["version"]
@@ -60,16 +61,27 @@ lint = "python -m ruff --extend-select I --extend-select E501 src tests"
 [tool.hatch.envs.script]
 dependencies = [
   "geopandas",
+  "httpx",
+  "matplotlib",
+  "openpyxl",
   "osmnx",
   "pandas",
+  "polyline",
+  "pyproj",
   "xlsx2csv",
 ]
 
 [tool.hatch.envs.script.scripts]
 agesex2conditional = "python scripts/dists/agesex2conditional.py {args}"
 multinomial2binomial = "python scripts/dists/multinomial2binomial.py {args}"
-extract-wds = "python scripts/data/extract_wds.py {args}"
+extract-census = "python scripts/data/extract_census.py {args}"
 extract-gadow = "python scripts/data/extract_gadow.py {args}"
+extract-kbr = "python scripts/data/extract_kbr.py {args}"
+extract-wds = "python scripts/data/extract_wds.py {args}"
+plan-trips = "python scripts/processing/plan_trips.py {args}"
+visualize-public-transport = "python scripts/visualization/public_transport_map.py {args}"
+visualize-age-dist = "python scripts/visualization/age_dist.py {args}"
+visualize-person-number-dist = "python scripts/visualization/person_number_dist.py {args}"
 
 [tool.hatch.envs.example]
 dependencies = [
@@ -82,7 +94,6 @@ feature-tree = "python examples/feature_tree.py"
 serialization = "python examples/serialization.py"
 validation = "python examples/validation.py"
 real = "python examples/real.py"
-a = "python examples/a.py"
 
 [[tool.hatch.envs.test.matrix]]
 python = ["311"]
@@ -212,6 +223,7 @@ exclude = [
 
 [tool.ruff.isort]
 known-first-party = ["udg"]
+split-on-trailing-comma = false
 
 [tool.ruff.flake8-annotations]
 suppress-dummy-args = true

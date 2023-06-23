@@ -1,5 +1,5 @@
 from ..base import HouseholdFeature
 
 
-class CarNumber(HouseholdFeature, int):
+class FamilyNumber(HouseholdFeature, int):
     pass

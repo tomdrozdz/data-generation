@@ -30,3 +30,6 @@ class Place:
 
 class TransportMode(Enum):
     CAR = "car"
+    PUBLIC_TRANSPORT = "public_transport"
+    PEDESTRIAN = "pedestrian"
+    BIKE = "bike"
