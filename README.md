@@ -1,5 +1,7 @@
 # Urban Data Generation
 
+[![DOI](https://zenodo.org/badge/610211970.svg)](https://zenodo.org/badge/latestdoi/610211970)
+
 ## Usage
 
 The project uses `hatch` as a project manager. In order to install it run:
