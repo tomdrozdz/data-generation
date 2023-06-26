@@ -1,0 +1,9 @@
+{
+    "single_family": 0.5631872498359033,
+    "single_family_with_parents": 0.04325480551656194,
+    "single_family_with_others": 0.028427255708200226,
+    "two_families_related": 0.0378653957916014,
+    "two_families_unrelated": 0.002704411138436974,
+    "three_and_more_families": 0.00256973655953769,
+    "unrelated": 0.3219911454497585
+}
