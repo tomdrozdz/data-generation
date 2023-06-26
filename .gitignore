@@ -134,8 +134,7 @@ results/
 /data/
 /cache
 
-src/udg/_data/wroclaw/*
-!src/udg/_data/wroclaw/unsorted
 /*.csv
 /*.json
 /*.png
+/*.ipynb
