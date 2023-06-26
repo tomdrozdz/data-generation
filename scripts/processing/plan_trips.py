@@ -82,31 +82,6 @@ def _process_person(
         )
         trip += 1
 
-        # for part in plan:
-        #     del part["elevationGained"]
-        #     del part["elevationLost"]
-        #     del part["fare"]
-        #     del part["walkLimitExceeded"]
-        #     del part["generalizedCost"]
-        #     del part["arrivedAtDestinationWithRentedBicycle"]
-        #     del part["tooSloped"]
-
-        #     for leg in part["legs"]:
-        #         del leg["generalizedCost"]
-        #         del leg["realTime"]
-        #         leg.pop("walkingBike", None)
-        #         leg.pop("rentedBike", None)
-        #         leg.pop("alerts", None)
-
-        #         for step in leg["steps"]:
-        #             del step["relativeDirection"]
-        #             del step["absoluteDirection"]
-        #             del step["stayOn"]
-        #             del step["area"]
-        #             del step["elevation"]
-        #             del step["walkingBike"]
-        #             step.pop("alerts", None)
-
     return plans
 
 
