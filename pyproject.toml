@@ -43,6 +43,16 @@ Source = "https://github.com/unknown/udg"
 [tool.hatch.version]
 path = "src/udg/__about__.py"
 
+[tool.hatch.build]
+include = [
+  "src/udg/**/*.py",
+  "src/udg/py.typed",
+  "src/udg/_data/**/*.json",
+  "src/udg/_data/**/*.geojson",
+  "src/udg/_data/**/*.csv",
+  "src/udg/_data/**/*.pkl",
+]
+
 [tool.hatch.envs.default]
 dependencies = [
   "black",
